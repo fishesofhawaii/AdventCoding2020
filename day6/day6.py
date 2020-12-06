@@ -1,24 +1,30 @@
+# 3377 too low
+# 4519 too high
 def split(word): 
-    return set([char for char in word])  
-
+    return set([char for char in word])
 
 with open('input.txt', 'r') as read_obj:
-    group_answers = set()
-    plane_answers = []
+    is_first = True
+    group_set = set()
+    plane_answer_count = 0
     for row in read_obj:
-        clean_row = row.strip()
-        user_answers = split(clean_row)
-        group_answers = group_answers | user_answers
+        person_answer = row.strip()
 
-        if len(clean_row) == 0:
-            plane_answers.append(group_answers)
-            group_answers = set()
+        if len(person_answer) == 0:
+            print(group_set)
+            
+            plane_answer_count += len(group_set)
+            group_set = set()
+            is_first = True
             continue
-        
-    plane_answers.append(group_answers)
 
-    counter = 0
-    for group in plane_answers:
-        counter += len(group)
+        person_set = split(person_answer)
 
-    print("there were", counter, "answers")
+        if is_first:
+            group_set = person_set
+            is_first = False
+        else:
+            group_set = group_set & person_set
+
+
+    print(plane_answer_count)
