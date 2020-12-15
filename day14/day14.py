@@ -66,7 +66,7 @@ with open('input.txt', 'r') as read_obj:
                 member_berries[eval(slot)] = int(right_side)
 
     total = 0
-    for k, v in member_berries.items():
+    for v in member_berries.values():
         total += v
 
     print(total)
